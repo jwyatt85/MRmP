@@ -24,6 +24,8 @@ get_margins <- function(df, states, vars){
     function(i){
       df <- dplyr::left_join(df, mrpExport::grouping_state_final, by='stname')
       
+      ## This is not the best code, but it'll do for now
+      
       df <- df %>% 
       dplyr::filter(
         stname == i
