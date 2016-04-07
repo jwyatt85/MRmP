@@ -79,7 +79,7 @@ final_state_tables <- lapply(
           }
         }
       )
-      oldtable <- svytable(ff, design)
+      oldtable <- survey::svytable(ff, design)
       
       while (iter < 100) {
         design$postStrata <- NULL
