@@ -84,14 +84,14 @@ final_state_tables <- lapply(
       while (iter < 100) {
         design$postStrata <- NULL
         for (i in 1:nmar) {
-          design <- postStratify(
+          design <- survey::postStratify(
             design,
             strata[[i]],
             population_margins[[i]], 
             compress = FALSE
           )
         }
-        newtable <- svytable(ff, design)
+        newtable <- survey::svytable(ff, design)
         delta <- max(abs(oldtable - newtable))
         if (delta < epsilon) {
           converged <- TRUE
