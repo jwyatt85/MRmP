@@ -15,7 +15,7 @@
 #'  vars = c('sex', 'age', 'race', 'education'))
 #' y <- get_joint_probs(x)
 #' my_formula <- as.formula(y ~ (1|age) + (1|sex) + (1|education) + (1|race) + Obama12)
-#' state_estimates <- mrmp(survey_data, y, my_formulat)
+#' state_estimates <- mrmp(survey_data, y, my_formula)
 mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
   
   mrmp_formula <- as.formula(mrmp_formula)
