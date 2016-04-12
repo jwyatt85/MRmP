@@ -10,15 +10,14 @@
 #'   can pass it \sQuote{ALL} to get margins for all states in DC.
 #' @param vars List of variables to get marginal proportions for each state:
 #'   sex, age, race, education.
-#' @param df A data frame with the population margins for each group as column
-#'   vector.
 #' @export
 #' @examples
-#' get_margins(df = data, states = c('DC', 'FL'), vars = c('sex', 'age', 'race', 'education'))
-get_margins <- function(df, states, vars){
+#' get_margins(states = c('DC', 'FL'), vars = c('sex', 'age', 'education', 'race', 'obama12'))
+get_margins <- function(states, vars){
   if('ALL' %in% states){
     states <- as.character(c(state.abb[1:8], 'DC', state.abb[9:50]))
   }
+  df <- state_margins
   output <- lapply(
     states, 
     function(i){

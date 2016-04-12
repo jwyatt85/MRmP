@@ -8,7 +8,7 @@
 #'  state abbreviations using get_joint_margins()
 #' @export
 #' @examples
-#' x <- get_joint_margins(states = c('DC', 'FL'), 
+#' x <- get_margins(states = c('DC', 'FL'), 
 #'  vars = c('sex', 'age', 'race', 'education'))
 #' get_joint_probs(x)
 get_joint_probs <- function(data){
