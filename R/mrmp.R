@@ -11,11 +11,13 @@
 #' @param survey_sample Total amount to sample from surve_data
 #' @export
 #' @examples
-#' x <- get_joint_margins(states = c('DC', 'FL'), 
-#'  vars = c('sex', 'age', 'race', 'education'))
-#' y <- get_joint_probs(x)
-#' my_formula <- as.formula("y ~ age + sex + education + race + obama12 + stname")
-#' state_estimates <- mrmp(survey_data, y, my_formula, survey_sample = NULL)
+#' x <- get_margins(states = c("ALL"), vars = c('sex', 'age', 'race', 'education')) 
+#' test <- mrmp(
+#' survey_data   = df,
+#' jointp_list   = get_joint_probs(x),
+#' mrmp_formula  = as.formula("y ~ age + stname  + sex + education + race"),
+#' survey_sample = NULL') %>% 
+#' bind_rows()
 mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
   
   mrmp_formula <- as.formula(mrmp_formula)
