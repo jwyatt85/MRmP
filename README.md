@@ -1,12 +1,6 @@
 # Multilevel Regression and Marginal Poststratification
 
-This `README.md` file gives a quick overview of the code used to generate state level MRmP.
-
-## Repo Structure
-In this repository are the following directories:
-
-  - `data`, directory of various data sources used internally to produce estimates. - census and state level covariates serving as grouping/state level variables
-  - `figures`, directory of various figures including heat maps to visualize estimates.
+This `README.md` file gives a quick overview of the code used to generate state level MRmP estimates (For further information on MRmP please refer to Leemann and Wasserfallen's 2014 paper: Extending the Use and Prediction Precision of Subnational Public Opinion Estimation)
 
 ## Unique Estimates
 This code can be used to generate unique MRmP estimates: 
