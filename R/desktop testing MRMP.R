@@ -20,7 +20,7 @@ data$stname <- as.character(c(state.abb[1:8], 'DC', state.abb[9:50]))[data$demSt
 
 
 x <- get_margins(states = c('DC', 'FL'), vars = c('sex', 'age', 'race', 'education')) 
-get_joint_probs(x)
+y <- get_joint_probs(x)
 
 
 x <- get_margins(states = c("ALL"), vars = c('sex', 'age', 'race', 'education'))
