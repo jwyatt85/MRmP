@@ -8,9 +8,11 @@
 #'  state abbreviations using get_joint_margins()
 #' @export
 #' @examples
+#' \donttest {
 #' x <- get_margins(states = c('DC', 'FL'), 
 #'  vars = c('sex', 'age', 'race', 'education'))
 #' get_joint_probs(x)
+#' }
 get_joint_probs <- function(data){
   x <- data
   #### Create marginal grids by state ------------------------------------------------------------------------------------

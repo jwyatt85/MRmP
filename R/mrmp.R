@@ -11,35 +11,47 @@
 #' @param survey_sample Total amount to sample from surve_data
 #' @export
 #' @examples
+#' \donttest {
 #' x <- get_joint_margins(states = c('DC', 'FL'), 
 #'  vars = c('sex', 'age', 'race', 'education'))
 #' y <- get_joint_probs(x)
-#' my_formula <- as.formula("y ~ age + sex + education + race + Obama12 + stname")
+#' my_formula <- as.formula("y ~ age + sex + education + race + obama12 + stname")
 #' state_estimates <- mrmp(survey_data, y, my_formula, survey_sample = NULL)
+#' }
 mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
   
   mrmp_formula <- as.formula(mrmp_formula)
+  response <- as.character(mrmp_formula[[2]])
+  remaining_variables <- as.character(dplyr::setdiff(.myformulatocharacter(mrmp_formula), response))
   
   if (!all(stname, names(survey_data))) {
     stop("You need stname - the merging variable with state-data", call. = FALSE)
   }
 
-  survey_data <- dplyr::left_join(survey_data, mrpExport::grouping_state_final, by='stname')
+  #do the recodes
+  survey_data_final <- survey_data %>% 
+    dplyr::mutate(
+      race      = as.character(as.factor(car::recode(demRace4, "2='Black';3='White';1='Other';4='Other';else=NA"))),
+      age       = as.character(as.factor(car::recode(age, "1='18-29'; 2='30-44'; 3='45-64'; 4='65+'"))),
+      sex       = as.character(as.factor(ifelse(demGender == 1, "Male", "Female"))),
+      education = as.character(as.factor(car::recode(educ4, "1='LTC'; 2='LTC'; 3='Bachelors'; 4='Post-grad'"))),
+      stname    = c(state.abb[1:8], "DC", state.abb[9:50])[demState]
+    ) %>%
+    dplyr::select_(response, 'race', 'age', 'education', 'stname', 'sex') %>% 
+    na.omit
+
+  survey_data_final <- dplyr::left_join(survey_data_final, mrpExport::grouping_state_final, by='stname')
   
   if(!assertthat::assert_that(is.character(mrmp_formula) | is.formula(mrmp_formula))){
     stop("formula provided needs to be in character format", call. = FALSE)
   }
-  
-  response <- as.character(mrmp_formula[[2]])
-  remaining_variables <- dplyr::setdiff(myformulatocharacter(mrmp_formula), response)
-  survey_data$response <- as.factor(survey_data$response)
   
   if (!all(is.element(remaining_variables, names(survey_data)))) {
     stop("Formula Variables not included in data - check names of your covariates", call. = FALSE)
   }
   
   if(!is.null(survey_sample)){
-    survey_data <- survey_data %>% 
+    survey_data <- survey_data_final %>% 
       dplyr::sample_n(survey_sample)
   }
   
@@ -51,9 +63,10 @@ mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
     )
   )  
   
-  #run model
-  MRmP <- suppressWarnings({blmer(blme_formula, data = survey_data, family = binomial(link="logit"))})
+  survey_data_final[[response]] <- as.factor(survey_data_final[[response]])
   
+  #run model
+  MRmP <- suppressWarnings({blmer(blme_formula, data = survey_data_final, family = binomial(link="logit"))})
   
   state_mrmp <- lapply(
     1:length(jointp_list), 

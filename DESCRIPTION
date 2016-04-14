@@ -3,6 +3,8 @@ Title: MRmarginalP
 Version: 0.0.1
 Authors@R: person("James Wyatt", "Travis B", email = "james@morningconsult.com", role=c("aut", "cre"))
 Description: Runs multilevel regression and marginal post-stratification
-Depends: R (>= 3.2.3)
+Depends:
+    R (>= 3.2.3)
 License: MC
 LazyData: true
+RoxygenNote: 5.0.1
