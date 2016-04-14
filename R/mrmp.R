@@ -14,11 +14,23 @@
 #' x <- get_joint_margins(states = c('DC', 'FL'), 
 #'  vars = c('sex', 'age', 'race', 'education'))
 #' y <- get_joint_probs(x)
-#' my_formula <- as.formula(y ~ (1|age) + (1|sex) + (1|education) + (1|race) + Obama12)
+#' my_formula <- as.formula("y ~ age + sex + education + race + Obama12")
 #' state_estimates <- mrmp(survey_data, y, my_formula)
 mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
   
   mrmp_formula <- as.formula(mrmp_formula)
+  
+  if(!assertthat::assert_that(is.character(mrmp_formula) | is.formula(mrmp_formula))){
+    stop("formula provided needs to be in character format", call. = FALSE)
+  }
+  
+  response <- as.character(mrmp_formula[[2]])
+  remaining_variables <- dplyr::setdiff(myformulatocharacter(mrmp_formula), response)
+  
+  if (!all(is.element(remaining_variables, names(survey_data)))) {
+    stop("Formula Variables not included in data", call. = FALSE)
+  }
+  
   
   if(!is.null(survey_sample)){
     survey_data <- survey_data %>% 
