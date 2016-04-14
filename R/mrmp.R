@@ -20,7 +20,7 @@ mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
   
   mrmp_formula <- as.formula(mrmp_formula)
   
-  if (!all(stname, names(survey_data)))) {
+  if (!all(stname, names(survey_data))) {
     stop("You need stname - the merging variable with state-data", call. = FALSE)
   }
 
@@ -32,6 +32,7 @@ mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
   
   response <- as.character(mrmp_formula[[2]])
   remaining_variables <- dplyr::setdiff(myformulatocharacter(mrmp_formula), response)
+  survey_data$response <- as.factor(survey_data$response)
   
   if (!all(is.element(remaining_variables, names(survey_data)))) {
     stop("Formula Variables not included in data - check names of your covariates", call. = FALSE)
@@ -41,6 +42,18 @@ mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
     survey_data <- survey_data %>% 
       dplyr::sample_n(survey_sample)
   }
+  
+  #reformlate the parameters of the formula to specified blme
+  blme_formula <- as.formula(
+    paste0(
+      response, ' ~ ',
+      paste0('(1|', remaining_variables , ')', collapse = ' + ')
+    )
+  )  
+  
+  #run model
+  MRmP <- suppressWarnings({blmer(blme_formula, data = survey_data, family = binomial(link="logit"))})
+  
   
   state_mrmp <- lapply(
     1:length(jointp_list), 
@@ -54,10 +67,6 @@ mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
           stname = names(jointp_list[i])
         )
       
-      
-      MRmP <- suppressWarnings({blmer(as.formula(mrmp_formula), data = survey_data, family = binomial(link="logit"))})
-      
-     
        predicted <- jointp_list[[i]] %>% 
         mutate(pred = predict(MRmP, newdata=jointp_list[[i]], type="response"))
        
