@@ -20,12 +20,10 @@ Creates subnational estimates based on the weighted frequence
 of each subgroup based on their joint probabilities
 }
 \examples{
-\donttest {
 x <- get_joint_margins(states = c('DC', 'FL'), 
  vars = c('sex', 'age', 'race', 'education'))
 y <- get_joint_probs(x)
 my_formula <- as.formula("y ~ age + sex + education + race + obama12 + stname")
 state_estimates <- mrmp(survey_data, y, my_formula, survey_sample = NULL)
-}
 }
 

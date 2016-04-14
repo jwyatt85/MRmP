@@ -12,9 +12,7 @@
 #'   sex, age, race, education.
 #' @export
 #' @examples
-#' \donttest{
 #' get_margins(states = c('DC', 'FL'), vars = c('sex', 'age', 'education', 'race', 'obama12'))
-#' }
 get_margins <- function(states, vars){
   if('ALL' %in% states){
     states <- as.character(c(state.abb[1:8], 'DC', state.abb[9:50]))

@@ -18,9 +18,7 @@ Gets state level marginal proportions for varyings groups such as age, sex,
 education, race
 }
 \examples{
-\donttest{
 get_margins(states = c('DC', 'FL'), vars = c('sex', 'age', 'education', 'race', 'obama12'))
-}
 }
 \author{
 James Wyatt

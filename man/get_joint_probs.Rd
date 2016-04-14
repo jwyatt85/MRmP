@@ -14,10 +14,8 @@ state abbreviations using get_joint_margins()}
 Creats joint probabilities for a combination of varabiles - derived from their marginal distributions
 }
 \examples{
-\donttest {
 x <- get_margins(states = c('DC', 'FL'), 
  vars = c('sex', 'age', 'race', 'education'))
 get_joint_probs(x)
-}
 }
 
