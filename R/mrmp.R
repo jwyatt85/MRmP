@@ -31,7 +31,6 @@ mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
     stop("Formula Variables not included in data", call. = FALSE)
   }
   
-  
   if(!is.null(survey_sample)){
     survey_data <- survey_data %>% 
       dplyr::sample_n(survey_sample)

@@ -1,5 +1,6 @@
 
-myformulaToCharacter <- function(formula) {
+
+myformulatocharacter <- function(formula) {
   string <- strsplit(Reduce(paste, deparse(formula)), split = '~')[[1]] %>% 
     paste0(collapse = '+') %>% 
     gsub('^\\s|\\s$', "", .) %>% 
@@ -8,3 +9,5 @@ myformulaToCharacter <- function(formula) {
     gsub('\\.', "", .)
   string[string != ""]
 }
+
+
