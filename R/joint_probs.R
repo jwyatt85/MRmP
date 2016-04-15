@@ -1,6 +1,6 @@
-#' MRmP - Joint Probabilities
+#' MRmP - Joint Probs
 #'
-#' Creats joint probabilities for a combination of varabiles - derived from their marginal distributions 
+#' Estimates the joint probabilities for a combination of varabiles - derived from their marginal distributions 
 #' 
 #'
 #'
