@@ -52,7 +52,7 @@ get_margins <- function(states, vars){
         names(margins) <- c(names(margins)[names(margins) > 1], "race")
       }
       if('party' %in% vars){
-        party_margins <- list(data.frame(race = c('Republican', 'Democrat', 'Independent', 'Something else'), Freq = c(df$Republican, df$Democrat, df$Independent, df$`Something else`)))
+        party_margins <- list(data.frame(party = c('Republican', 'Democrat', 'Independent', 'Something else'), Freq = c(df$Republican, df$Democrat, df$Independent, df$`Something else`)))
         margins <- c(margins, party_margins)
         names(margins) <- c(names(margins)[names(margins) > 1], "party")
       }
