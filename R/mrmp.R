@@ -15,7 +15,7 @@
 #' test <- mrmp(
 #' survey_data   = df,
 #' jointp_list   = get_joint_probs(x),
-#' mrmp_formula  = as.formula("y ~ age + stname  + sex + education + race"),
+#' mrmp_formula  = as.formula("y ~ age + stname  + sex + education + race + party + obama12 + religion + medianhhincome"),
 #' survey_sample = NULL') %>% 
 #' bind_rows()
 mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
@@ -75,7 +75,8 @@ mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
       jointp_list[[i]] <- jointp_list[[i]] %>% 
         dplyr::mutate(
           obama12 = df$obama12,
-          stname = names(jointp_list[i])
+          stname = names(jointp_list[i]),
+          medianhhincome = df$medianhhincome
         )
       
        predicted <- jointp_list[[i]] %>% 
