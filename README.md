@@ -2,8 +2,6 @@
 
 This `README.md` file gives a quick overview of the code used to generate state level MRmP estimates (For further information on MRmP please refer to Leemann and Wasserfallen's 2014 paper: Extending the Use and Prediction Precision of Subnational Public Opinion Estimation)
 
-** This code will not function without proper Morning Consult credentials and internal/private packages.  
-
 ## Unique Estimates
 This code can be used to generate unique MRmP estimates: 
 ``` r 
