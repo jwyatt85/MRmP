@@ -32,9 +32,10 @@ mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
       sex       = as.character(as.factor(ifelse(demGender == 1, "Male", "Female"))),
       education = as.character(as.factor(car::recode(educ4, "1='LTC'; 2='LTC'; 3='Bachelors'; 4='Post-grad'"))),
       stname    = c(state.abb[1:8], "DC", state.abb[9:50])[demState],
-      party     = as.character(as.factor(car::recode(demPidNoLn, "1='Republican'; 2='Democrat'; 3='Independent'; 4='Something else'")))
+      party     = as.character(as.factor(car::recode(demPidNoLn, "1='Republican'; 2='Democrat'; 3='Independent'; 4='Something else'"))),
+      religion  = as.character(as.factor(car::recode(xreligion3, "1='Christian'; 2='Non_Christian'")))
     ) %>%
-    dplyr::select_(response, 'race', 'age', 'education', 'stname', 'sex', 'party') %>% 
+    dplyr::select_(response, 'race', 'age', 'education', 'stname', 'sex', 'party', 'religion') %>% 
     na.omit
 
   survey_data_final <- dplyr::left_join(survey_data_final, mrpExport::grouping_state_final, by='stname')

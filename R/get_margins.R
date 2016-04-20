@@ -61,6 +61,11 @@ get_margins <- function(states, vars){
         margins <- c(margins, obama12_margins)
         names(margins) <- c(names(margins)[names(margins) > 1], "obama12")
       }
+      if('religion' %in% vars){
+        religion_margins <- list(data.frame(religion = c('Christian', 'Non_Christian'), Freq = c(df$percent_christian, df$percent_non_christian)))
+        margins <- c(margins, religion_margins)
+        names(margins) <- c(names(margins)[names(margins) > 1], "religion")
+      }
       
       margins
     }
