@@ -2,7 +2,7 @@
 % Please edit documentation in R/joint_probs.R
 \name{get_joint_probs}
 \alias{get_joint_probs}
-\title{MRmP - Joint Probabilities}
+\title{MRmP - Joint Probs}
 \usage{
 get_joint_probs(data)
 }
@@ -11,7 +11,7 @@ get_joint_probs(data)
 state abbreviations using get_joint_margins()}
 }
 \description{
-Creats joint probabilities for a combination of varabiles - derived from their marginal distributions
+Estimates the joint probabilities for a combination of varabiles - derived from their marginal distributions
 }
 \examples{
 x <- get_margins(states = c('DC', 'FL'), 
