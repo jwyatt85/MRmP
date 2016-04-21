@@ -7,23 +7,30 @@
 #'
 #' @param survey_data A survey data frame 
 #' @param jointp_list A data frame containg the weighted frequency of each strata
-#' @param mrmp_formula A formulat to fit on survey_data
+#' @param individualvars variables used in mixed effects formula that will have random intercepts
+#' @param groupingvars variables used in mixed effects formula that serve as state-level grouping vars and do not have random intercepts
+#' @param response The response/outcome variable on which to regress
 #' @param survey_sample Total amount to sample from surve_data
 #' @export
 #' @examples
 #' x <- get_margins(states = c("ALL"), vars = c('sex', 'age', 'race', 'education')) 
 #' test <- mrmp(
-#' survey_data   = df,
-#' jointp_list   = get_joint_probs(x),
-#' mrmp_formula  = as.formula("y ~ age + stname  + sex + education + race + party + obama12 + religion + medianhhincome + percent_gdp_increase"),
-#' survey_sample = NULL') %>% 
+#' survey_data    = df,
+#' jointp_list    = get_joint_probs(x),
+#' response       = 'y',
+#' individualvars = c('age + stname  + sex + education + race + party + religion'),
+#' groupingvars   = c('obama12 + medianhhincome + percent_gdp_increase'),
+#' survey_sample  = NULL') %>% 
 #' bind_rows()
-mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
+mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, response, survey_sample = NULL){
   
-  mrmp_formula <- as.formula(mrmp_formula)
-  response <- as.character(mrmp_formula[[2]])
-  remaining_variables <- as.character(dplyr::setdiff(.myformulatocharacter(mrmp_formula), response))
+  response <- as.character(response)
+  individualvars <- as.character(individualvars)
+  groupingvars <- as.character(groupingvars)
   
+  individualvars <- as.character(dplyr::setdiff(.myformulatocharacter2(individualvars), response))
+  groupingvars <- as.character(dplyr::setdiff(.myformulatocharacter2(groupingvars), response))
+
   #do the recodes
   survey_data_final <- survey_data %>% 
     dplyr::mutate(
@@ -40,27 +47,25 @@ mrmp <- function(survey_data, jointp_list, mrmp_formula, survey_sample = NULL){
 
   survey_data_final <- dplyr::left_join(survey_data_final, mrpExport::grouping_state_final, by='stname')
   
-  if(!assertthat::assert_that(is.character(mrmp_formula) | is.formula(mrmp_formula))){
-    stop("formula provided needs to be in character format", call. = FALSE)
+  if (!all(c(individualvars %in% names(survey_data_final)))) {
+    stop("Individualvars not included in data - check names of your covariates", call. = FALSE)
   }
-  
-  if (!all(is.element(remaining_variables, names(survey_data_final)))) {
-    stop("Formula Variables not included in data - check names of your covariates", call. = FALSE)
+  if (!all(c(groupingvars %in% names(survey_data_final)))) {
+    stop("Groupingvars not included in data - check names of your covariates", call. = FALSE)
   }
   
   if(!is.null(survey_sample)){
-    survey_data <- survey_data_final %>% 
+    survey_data_final <- survey_data_final %>% 
       dplyr::sample_n(survey_sample)
   }
   
   #reformlate the parameters of the formula to specified blme
   blme_formula <- as.formula(
+  paste0(
     paste0(
       response, ' ~ ',
-      paste0('(1|', remaining_variables , ')', collapse = ' + ')
-    )
-  )  
-  
+      paste0('(1|', individualvars, ')', collapse = ' + ')),'+',paste0("", groupingvars, "", collapse = ' + ')))
+
   survey_data_final[[response]] <- as.factor(survey_data_final[[response]])
   
   #run model

@@ -4,14 +4,19 @@
 \alias{mrmp}
 \title{MRmP - Multilevel Regression and Marginal Poststratification}
 \usage{
-mrmp(survey_data, jointp_list, mrmp_formula, survey_sample = NULL)
+mrmp(survey_data, jointp_list, individualvars, groupingvars, response,
+  survey_sample = NULL)
 }
 \arguments{
 \item{survey_data}{A survey data frame}
 
 \item{jointp_list}{A data frame containg the weighted frequency of each strata}
 
-\item{mrmp_formula}{A formulat to fit on survey_data}
+\item{individualvars}{variables used in mixed effects formula that will have random intercepts}
+
+\item{groupingvars}{variables used in mixed effects formula that serve as state-level grouping vars and do not have random intercepts}
+
+\item{response}{The response/outcome variable on which to regress}
 
 \item{survey_sample}{Total amount to sample from surve_data}
 }
