@@ -3,6 +3,13 @@ Title: MRmarginalP
 Version: 0.0.1
 Authors@R: person("James Wyatt", "Travis B", email = "james@morningconsult.com", role=c("aut", "cre"))
 Description: Runs multilevel regression and marginal post-stratification
+Collate:
+  'pipe.R'
+  'state_margins_data.R'
+  'get_margins.R'
+  'helper.R'
+  'joint_probs.R'
+  'mrmp.R'
 Depends:
     R (>= 3.2.3)
 License: MC

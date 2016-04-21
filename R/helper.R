@@ -1,5 +1,3 @@
-
-
 .myformulatocharacter <- function(formula) {
   string <- strsplit(Reduce(paste, deparse(formula)), split = '')[[1]] %>% 
     paste0(collapse = '+') %>% 
@@ -10,7 +8,6 @@
   string[nzchar(string)]
 }
 
-#post-stravis function
 .myformulatocharacter2 <- function(formula) {
   string <- unlist(strsplit(formula, "+", fixed=TRUE)) %>% 
     gsub('\\s', "", .) %>% 

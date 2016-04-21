@@ -12,16 +12,7 @@
 #' @param response The response/outcome variable on which to regress
 #' @param survey_sample Total amount to sample from surve_data
 #' @export
-#' @examples
-#' x <- get_margins(states = c("ALL"), vars = c('sex', 'age', 'race', 'education')) 
-#' test <- mrmp(
-#' survey_data    = df,
-#' jointp_list    = get_joint_probs(x),
-#' response       = 'y',
-#' individualvars = c('age + stname  + sex + education + race + party + religion'),
-#' groupingvars   = c('obama12 + medianhhincome + percent_gdp_increase'),
-#' survey_sample  = NULL') %>% 
-#' bind_rows()
+
 mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, response, survey_sample = NULL){
   
   response <- as.character(response)
@@ -86,10 +77,10 @@ mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, respons
         )
       
        predicted <- jointp_list[[i]] %>% 
-        mutate(pred = predict(MRmP, newdata=jointp_list[[i]], type="response"))
+        dplyr::mutate(pred = predict(MRmP, newdata=jointp_list[[i]], type="response"))
        
        predicted <- predicted %>% 
-         mutate(
+         dplyr::mutate(
            weighted_pred = predicted$pred * predicted$Freq
          )
        
