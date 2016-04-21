@@ -10,8 +10,7 @@
   string[nzchar(string)]
 }
 
-#test on windows addition
-
+#post-stravis function
 .myformulatocharacter2 <- function(formula) {
   string <- unlist(strsplit(formula, "+", fixed=TRUE)) %>% 
     gsub('\\s', "", .) %>% 
