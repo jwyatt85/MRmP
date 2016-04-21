@@ -19,7 +19,7 @@ To develop state level estimates the function takes in 4 paramaters
 
   - `survey_data`, a (nxn) data frame / survey data, where each row is a survey respondent and columns serve as covariates
   - `mrmp_formula`, formula used to specify the MRmP model.
-  - `jointp_list`, a single data frame or a list of data frames containing the synthetic joint distributuions by state from their respective state marginal distrbutions of each covariabe, which can be calculated using get_joint_probs(X)
+  - `jointp_list`, a single data frame or a list of data frames containing the synthetic joint distributuions by state from their respective state marginal distrbutions of each demograhpic variable, which can be calculated using get_joint_probs(X)
   - `survey_sample`, Take a random sample of the dataframe (without replacement) 
 
 
