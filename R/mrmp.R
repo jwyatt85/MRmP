@@ -21,7 +21,7 @@ mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, respons
   
   individualvars <- as.character(dplyr::setdiff(.myformulatocharacter2(individualvars), response))
   groupingvars <- as.character(dplyr::setdiff(.myformulatocharacter2(groupingvars), response))
-
+  
   #do the recodes
   survey_data_final <- survey_data %>% 
     dplyr::mutate(
@@ -35,7 +35,7 @@ mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, respons
     ) %>%
     dplyr::select_(response, 'race', 'age', 'education', 'stname', 'sex', 'party', 'religion') %>% 
     na.omit
-
+  
   survey_data_final <- dplyr::left_join(survey_data_final, mrpExport::grouping_state_final, by='stname')
   
   if (!all(c(individualvars %in% names(survey_data_final)))) {
@@ -52,11 +52,11 @@ mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, respons
   
   #reformlate the parameters of the formula to specified blme
   blme_formula <- as.formula(
-  paste0(
     paste0(
-      response, ' ~ ',
-      paste0('(1|', individualvars, ')', collapse = ' + ')),'+',paste0("", groupingvars, "", collapse = ' + ')))
-
+      paste0(
+        response, ' ~ ',
+        paste0('(1|', individualvars, ')', collapse = ' + ')),'+',paste0("", groupingvars, "", collapse = ' + ')))
+  
   survey_data_final[[response]] <- as.factor(survey_data_final[[response]])
   
   #run model
@@ -76,18 +76,16 @@ mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, respons
           percent_gdp_increase = df$percent_gdp_increase
         )
       
-       predicted <- jointp_list[[i]] %>% 
+      predicted <- jointp_list[[i]] %>% 
         dplyr::mutate(pred = predict(MRmP, newdata=jointp_list[[i]], type="response"))
-       
-       predicted <- predicted %>% 
-         dplyr::mutate(
-           weighted_pred = predicted$pred * predicted$Freq
-         )
-       
-       final_state_df <- data.frame(stname = names(jointp_list[i]), state_pred = sum(predicted$weighted_pred))
-       final_state_df
+      
+      predicted <- predicted %>% 
+        dplyr::mutate(
+          weighted_pred = predicted$pred * predicted$Freq
+        )
+      
+      final_state_df <- data.frame(stname = names(jointp_list[i]), state_pred = sum(predicted$weighted_pred))
+      final_state_df
     }
   )
 }
-  
-  
