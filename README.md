@@ -8,6 +8,9 @@ This code can be used to generate unique MRmP estimates:
 x <- get_margins(states = c("ALL"), vars = c('sex', 'age', 'race', 'education', 'religion', 'party')) 
 joints <- get_join_probs(x)
 
+individualvars <- c("age + stname  + sex + education + race + party + religion")
+groupingvars <- c("obama12 + medianhhincome + percent_gdp_increase")
+
 test <- mrmp(
   survey_data     = df,
   jointp_list     = joints,
