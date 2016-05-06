@@ -65,7 +65,8 @@ get_margins <- function(states, vars){
         religion_margins <- list(data.frame(religion = c('Christian', 'Non_Christian'), Freq = c(df$percent_christian, df$percent_non_christian)))
         margins <- c(margins, religion_margins)
         names(margins) <- c(names(margins)[names(margins) > 1], "religion")
-      }
+      } 
+      ## Adding Union 
       
       margins
     }
