@@ -1,6 +1,6 @@
 # Multilevel Regression and Marginal Poststratification
 
-This `README.md` file gives a quick overview of the code used to generate state level MRmP estimates (For further information on MRmP please refer to Leemann and Wasserfallen's 2014 paper: Extending the Use and Prediction Precision of Subnational Public Opinion Estimation)
+This `README.md` file gives a quick overview of the code used to generate state level MRmP estimates (For further information on MRmP please refer to Leemann and Wasserfallen's 2014 paper: Extending the Use and Prediction Precision of Subnational Public Opinion Estimation).
 
 ## Unique Estimates
 This code can be used to generate unique MRmP estimates: 
@@ -25,7 +25,7 @@ To develop state level estimates the function takes in 4 paramaters
 
   - `survey_data`, a (nxn) data frame / survey data, where each row is a survey respondent and columns serve as covariates
   - `individualvars`, variables used as individual level covariates - random intercepts
-  - `groupingvars`, variables that serve as grouping level variables: state level covariates for example that do not vary in their slope or intercept
+  - `groupingvars`, variables that serve as grouping level variables: state level covariates for example that do not vary in their slope or intercept 
   - `jointp_list`, a single data frame or a list of data frames containing the synthetic joint distributuions by state from their respective state marginal distrbutions of each demograhpic variable, which can be calculated using get_joint_probs(X)
   - `response`, the response variable in the data set (currently needs binary, i.e. 0:1)
   - `survey_sample`, Take a random sample of the dataframe (without replacement) 
