@@ -11,9 +11,10 @@
 #' @param groupingvars variables used in mixed effects formula that serve as state-level grouping vars and do not have random intercepts
 #' @param response The response/outcome variable on which to regress
 #' @param survey_sample Total amount to sample from surve_data
+#' @param margins_df
 #' @export
 
-mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, response, survey_sample = NULL){
+mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, response, survey_sample = NULL, margins_df = NULL){
   
   response <- as.character(response)
   individualvars <- as.character(individualvars)
