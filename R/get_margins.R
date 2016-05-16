@@ -10,10 +10,11 @@
 #'   can pass it \sQuote{ALL} to get margins for all states in DC.
 #' @param vars List of variables to get marginal proportions for each state:
 #'   sex, age, race, education.
+#' @param custom_margins 
 #' @export
 #' @examples
 #' get_margins(states = c('DC', 'FL'), vars = c('sex', 'age', 'education', 'race', 'obama12'))
-get_margins <- function(states, vars){
+get_margins <- function(states, vars, custom_margins = NULL){
   if('ALL' %in% states){
     states <- as.character(c(state.abb[1:8], 'DC', state.abb[9:50]))
   }

@@ -4,7 +4,7 @@
 \alias{get_margins}
 \title{MRmP - State Margins}
 \usage{
-get_margins(states, vars)
+get_margins(states, vars, custom_margins = NULL)
 }
 \arguments{
 \item{states}{Character vector of state abbreviations. Alternatively or you
@@ -12,6 +12,8 @@ can pass it \sQuote{ALL} to get margins for all states in DC.}
 
 \item{vars}{List of variables to get marginal proportions for each state:
 sex, age, race, education.}
+
+\item{custom_margins}{}
 }
 \description{
 Gets state level marginal proportions for varyings groups such as age, sex,
