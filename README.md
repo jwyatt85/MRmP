@@ -21,7 +21,6 @@ test <- mrmp(
 ) %>% 
   bind_rows()
 ```
-To develop state level estimates the function takes in 4 paramaters
 
   - `survey_data`, a (nxn) data frame / survey data, where each row is a survey respondent and columns serve as covariates
   - `individualvars`, variables used as individual level covariates - random intercepts
