@@ -1,7 +1,7 @@
 #' MRmP - State Margins
 #' 
 #' Gets state level marginal proportions for varyings groups such as age, sex,
-#' education, race
+#' education, race 
 #' 
 #' 
 #' 
