@@ -26,7 +26,7 @@ test <- mrmp(
   - `individualvars`, variables used as individual level covariates - random intercepts
   - `groupingvars`, variables that serve as grouping level variables: state level covariates for example that do not vary in their slope or intercept 
   - `jointp_list`, a single data frame or a list of data frames containing the synthetic joint distributuions by state from their respective state marginal distrbutions of each demograhpic variable, which can be calculated using get_joint_probs(X)
-  - `response`, the response variable in the data set (currently needs binary, i.e. 0:1)
+  - `response`, the response variable in the data set (currently needs to be binary, i.e. 0:1)
   - `survey_sample`, Take a random sample of the dataframe (without replacement) 
 
 
