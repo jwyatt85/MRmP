@@ -61,9 +61,9 @@ mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, respons
   survey_data_final[[response]] <- as.factor(survey_data_final[[response]])
   
   #run model
-  if(!is.null(weights)){
-    MRmP <- suppressWarnings({blmer(blme_formula, data = survey_data_final, weights = data[[weights]], family = binomial(link="logit"))})
-  } else{
+  if(weights){
+    MRmP <- suppressWarnings({blmer(blme_formula, data = survey_data_final, weights = data$wts, family = binomial(link="logit"))})
+  } else {
     MRmP <- suppressWarnings({blmer(blme_formula, data = survey_data_final, family = binomial(link="logit"))})
   }
   
