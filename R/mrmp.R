@@ -11,9 +11,10 @@
 #' @param groupingvars variables used in mixed effects formula that serve as state-level grouping vars and do not have random intercepts
 #' @param response The response/outcome variable on which to regress
 #' @param survey_sample Total amount to sample from surve_data
+#' @param weights Weights to be used in the bglmer
 #' @export
 
-mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, response, survey_sample = NULL){
+mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, response, survey_sample = NULL, weights = NULL){
   
   response <- as.character(response)
   individualvars <- as.character(individualvars)
@@ -60,7 +61,11 @@ mrmp <- function(survey_data, jointp_list, individualvars, groupingvars, respons
   survey_data_final[[response]] <- as.factor(survey_data_final[[response]])
   
   #run model
-  MRmP <- suppressWarnings({blmer(blme_formula, data = survey_data_final, family = binomial(link="logit"))})
+  if(!is.null(weights)){
+    MRmP <- suppressWarnings({blmer(blme_formula, data = survey_data_final, weights = data$wts, family = binomial(link="logit"))})
+  } else{
+    MRmP <- suppressWarnings({blmer(blme_formula, data = survey_data_final, family = binomial(link="logit"))})
+  }
   
   state_mrmp <- lapply(
     1:length(jointp_list), 

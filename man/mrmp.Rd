@@ -5,7 +5,7 @@
 \title{MRmP - Multilevel Regression and Marginal Poststratification}
 \usage{
 mrmp(survey_data, jointp_list, individualvars, groupingvars, response,
-  survey_sample = NULL)
+  survey_sample = NULL, weights = NULL)
 }
 \arguments{
 \item{survey_data}{A survey data frame}
@@ -19,6 +19,8 @@ mrmp(survey_data, jointp_list, individualvars, groupingvars, response,
 \item{response}{The response/outcome variable on which to regress}
 
 \item{survey_sample}{Total amount to sample from surve_data}
+
+\item{weights}{Weights to be used in the bglmer}
 }
 \description{
 Creates subnational estimates based on the weighted frequence
