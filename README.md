@@ -6,7 +6,7 @@ This `README.md` file gives a quick overview of the code used to generate state 
 This code can be used to generate unique MRmP estimates: 
 ``` r 
 x <- get_margins(states = c("ALL"), vars = c('sex', 'age', 'race', 'education', 'religion', 'party')) 
-joints <- get_join_probs(x)
+joints <- get_joint_probs(x)
 
 individualvars <- c("age + stname  + sex + education + race + party + religion")
 groupingvars <- c("obama12 + medianhhincome + percent_gdp_increase")
